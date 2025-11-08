@@ -1,3 +1,10 @@
+//user obj
+// id 
+// username 
+// age 
+// hobbies 
+
+
 
 const users = new Map();
 
