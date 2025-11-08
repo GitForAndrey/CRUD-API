@@ -1,5 +1,5 @@
 import { v4 as uuidv4 } from 'uuid';
-import * as db from '../storage/inMemoryDB.js';
+import * as db from '../db/db.js';
 import { isValidUUID, validateUserData } from '../utils/validator.js';
 import { sendJSON, parseBody } from '../utils/helpers.js';
 
