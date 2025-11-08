@@ -32,3 +32,7 @@ export const updateUser = async (id, user) => {
 export const deleteUser = async (id) => {
   return users.delete(id);
 };
+
+export const clearAll = async () => {
+  users.clear();
+};
