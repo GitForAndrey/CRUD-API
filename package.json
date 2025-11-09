@@ -1,15 +1,20 @@
 {
   "name": "crud-api",
   "version": "1.0.0",
+  "type": "module",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node dist/server.js"
+    "start:dev": "cross-env NODE_ENV=development nodemon src/server.js",
+    "start:prod": "npm run build && cross-env NODE_ENV=production node dist/bundle.js",
+    "build": "node build.js",
+    "test": "cross-env NODE_ENV=test node --experimental-vm-modules node_modules/jest/bin/jest.js",
+    "test:watch": "cross-env NODE_ENV=test node --experimental-vm-modules node_modules/jest/bin/jest.js --watch",
+    "test:coverage": "cross-env NODE_ENV=test node --experimental-vm-modules node_modules/jest/bin/jest.js --coverage"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "type": "commonjs",
   "dependencies": {
     "cross-env": "^10.1.0",
     "dotenv": "^17.2.3",
@@ -20,7 +25,11 @@
     "@types/uuid": "^10.0.0",
     "@typescript-eslint/eslint-plugin": "^8.46.3",
     "@typescript-eslint/parser": "^8.46.3",
+    "cross-env": "^7.0.3",
+    "esbuild": "^0.24.0",
     "eslint": "^9.39.1",
+    "jest": "^30.2.0",
+    "nodemon": "^3.1.7",
     "prettier": "^3.6.2",
     "ts-node": "^10.9.2",
     "ts-node-dev": "^2.0.0",
