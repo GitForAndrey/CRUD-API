@@ -66,7 +66,16 @@ npm run test
     - `hobbies` — user's hobbies (`array` of `strings` or empty `array`, **required**)
 3. Requests to non-existing endpoints (e.g. `some-non/existing/resource`) should be handled (server should answer with `status code` **404** and corresponding human-friendly message)
 4. Errors on the server side that occur during the processing of a request should be handled and processed correctly (server should answer with `status code` **500** and corresponding human-friendly message)
-5. Value of `port` on which application is running should be stored in `.env` file
+5. Value of port on which application is running should be stored in .env file
+    Important: The .env file itself should not be committed to the repository as it is considered a security bad practice. Please consider to add .env file in .gitignore.
+
+    Instead, create and commit .env.example file that contains a list of required environment variables with reasonable default values
+
+    Example of .env.example contents:
+    ```bash
+    PORT=4000
+    ```
+
 6. There should be 2 modes of running application (**development** and **production**):
     - The application is run in development mode using `nodemon` or `ts-node-dev` (there is a `npm` script `start:dev`)
     - The application is run in production mode (there is a `npm` script `start:prod` that starts the build process and then runs the bundled file)
