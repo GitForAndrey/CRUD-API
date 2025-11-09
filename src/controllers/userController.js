@@ -6,7 +6,7 @@ import { sendJSON, parseBody } from '../utils/helpers.js';
 
 export const getAllUsers = async (req, res) => {
   try {
-    const users = await User.find();
+    const users = await db.getAllUsers();
     sendJSON(res, 200, users);
   } catch (error) {
     throw error;
