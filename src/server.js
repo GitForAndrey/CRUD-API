@@ -5,7 +5,7 @@ import { router } from './router.js';
 
 dotenv.config();
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT;
 const NODE_ENV = process.env.NODE_ENV || 'development';
 
 export const createServer = () => {

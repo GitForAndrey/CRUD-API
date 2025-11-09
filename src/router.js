@@ -55,7 +55,6 @@ const matchRoute = (method, url) => {
   });
 };
 
-
 export const router = async (req, res) => {
   const { method = '', url = '' } = req;
   const parsedUrl = url.split('?')[0];
@@ -63,7 +62,14 @@ export const router = async (req, res) => {
   const route = matchRoute(method, parsedUrl);
   
   if (route) {
-    await route.handler(req, res);
+    try {
+      await route.handler(req, res);
+    } catch (error) {
+      console.error('Server error:', error);
+      sendJSON(res, 500, { 
+        message: 'Internal server error. Please try again later.' 
+      });
+    }
   } else {
     sendJSON(res, 404, { message: 'Route not found' });
   }

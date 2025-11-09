@@ -3,19 +3,19 @@ import * as db from '../db/db.js';
 import { isValidUUID, validateUserData } from '../utils/validator.js';
 import { sendJSON, parseBody } from '../utils/helpers.js';
 
-//get all users
+
 export const getAllUsers = async (req, res) => {
   try {
-    const users = await db.getAllUsers();
+    const users = await User.find();
     sendJSON(res, 200, users);
   } catch (error) {
-    sendJSON(res, 500, { message: 'Internal server error' });
+    throw error;
   }
 };
 
-//get user
 export const getUserById = async (req, res, userId) => {
-  if (!isValidUUID(userId)) {
+   try {
+    if (!isValidUUID(userId)) {
     sendJSON(res, 400, { message: 'Invalid userId (not UUID)' });
     return;
   }
@@ -28,9 +28,11 @@ export const getUserById = async (req, res, userId) => {
   }
 
   sendJSON(res, 200, user);
+  } catch (error) {
+    throw error;
+  }
 };
 
-// create user
 export const createUser = async (req, res) => {
   try {
     const userData = await parseBody(req);
@@ -52,18 +54,17 @@ export const createUser = async (req, res) => {
     const createdUser = await db.createUser(newUser);
     sendJSON(res, 201, createdUser);
   } catch (error) {
-    sendJSON(res, 400, { message: 'Invalid JSON' });
+    throw error;
   }
 };
 
-// update user
 export const updateUser = async (req, res, userId) => {
-  if (!isValidUUID(userId)) {
-    sendJSON(res, 400, { message: 'Invalid userId (not UUID)' });
-    return;
-  }
-
   try {
+    if (!isValidUUID(userId)) {
+      sendJSON(res, 400, { message: 'Invalid userId (not UUID)' });
+      return;
+    }
+
     const userData = await parseBody(req);
     const validation = validateUserData(userData);
     
@@ -89,13 +90,13 @@ export const updateUser = async (req, res, userId) => {
 
     sendJSON(res, 200, result);
   } catch (error) {
-    sendJSON(res, 400, { message: 'Invalid JSON' });
+    throw error;
   }
 };
 
-//del user
 export const deleteUser = async (req, res, userId) => {
-  if (!isValidUUID(userId)) {
+  try {
+    if (!isValidUUID(userId)) {
     sendJSON(res, 400, { message: 'Invalid userId (not UUID)' });
     return;
   }
@@ -109,4 +110,9 @@ export const deleteUser = async (req, res, userId) => {
 
   res.writeHead(204);
   res.end();
+   
+  } catch (error) {
+    throw error;
+  }
+  
 };
